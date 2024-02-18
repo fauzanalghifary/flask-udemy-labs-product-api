@@ -9,4 +9,4 @@ class ProductCategoriesService:
 
     def get_all_supported_categories(self) -> str:
         """Returns a comma separated list of categories, sorted alphabetically"""
-        return ",".join(sorted(self._database.find_all_categories()))
+        return ",".join(sorted(set(self._database.find_all_categories())))
