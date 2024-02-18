@@ -26,6 +26,19 @@ class TestProductsService(unittest.TestCase):
         self.database.find_at_most_number_of_products.assert_called_once()
         self.assertListEqual(deals_of_the_day, [TestProductsService.PRODUCT1, TestProductsService.PRODUCT2])
 
+    def test_get_products_by_category_correct_category_products(self):
+        def mock_find_product_by_category(category: str) -> List[Product]:
+            if category == "art":
+                return [TestProductsService.PRODUCT1]
+            elif category == "electronics":
+                return [TestProductsService.PRODUCT2, TestProductsService.PRODUCT3]
+            else:
+                raise AssertionError(f"Unexpected Category {category}")
+        self.database.find_product_by_category.side_effect = mock_find_product_by_category
+        self.assertListEqual(self.service.get_products_by_category("art"), [TestProductsService.PRODUCT1])
+        self.assertListEqual(self.service.get_products_by_category("electronics"),
+                             [TestProductsService.PRODUCT3, TestProductsService.PRODUCT2])
+
 
 if __name__ == '__main__':
     unittest.main()
