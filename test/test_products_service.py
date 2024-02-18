@@ -39,6 +39,10 @@ class TestProductsService(unittest.TestCase):
         self.assertListEqual(self.service.get_products_by_category("electronics"),
                              [TestProductsService.PRODUCT3, TestProductsService.PRODUCT2])
 
+    def test_get_products_by_category_empty_category_raises_exception(self):
+        with self.assertRaises(ValueError) as context_manager:
+            self.service.get_products_by_category("")
+        self.database.find_product_by_category.assert_not_called()
 
 if __name__ == '__main__':
     unittest.main()

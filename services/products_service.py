@@ -27,7 +27,7 @@ class ProductsService:
         """Returns all the products of a given category, sorted alphabetically"""
 
         if not product_category or not product_category.strip():
-            print("Product category should be a non-empty string")
+            raise ValueError("Product category should be a non-empty string")
         return sorted(self._database.find_product_by_category(product_category), key=attrgetter("name"))
 
     def get_all_products(self) -> List[Product]:
