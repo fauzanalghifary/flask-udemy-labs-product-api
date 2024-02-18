@@ -20,7 +20,8 @@ class ProductsService:
     def get_deals_of_the_day(self, max_number_of_products: int) -> List[Product]:
         """Returns at most max_number_of_products"""
 
-        return self._database.find_all_products()
+        return self._database.find_at_most_number_of_products(max_number_of_products)
+
 
     def get_products_by_category(self, product_category: str) -> List[Product]:
         """Returns all the products of a given category, sorted alphabetically"""
