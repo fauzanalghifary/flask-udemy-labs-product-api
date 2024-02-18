@@ -13,7 +13,7 @@ class TestProductCategoriesService(unittest.TestCase):
         database = Database()
         service = ProductCategoriesService(database)
         expected_categories = "art,electronics,toys"
-
+        self.assertEqual(service.get_all_supported_categories(), expected_categories)
 
 if __name__ == '__main__':
     unittest.main()
