@@ -39,7 +39,7 @@ class ProductsService:
         day = today.day
         month = today.month
 
-        if day == 1 and month == 2:
+        if day == 1 and month == 1:
             return self._apply_discount(products)
         else:
             return products

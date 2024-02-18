@@ -44,5 +44,15 @@ class TestProductsService(unittest.TestCase):
             self.service.get_products_by_category("")
         self.database.find_product_by_category.assert_not_called()
 
+    @patch('services.products_service.datetime')
+    def test_get_all_products_discounted_on_new_year_only(self, mock_datetime_class):
+        self.database.find_all_products.return_value = \
+            [TestProductsService.PRODUCT1, TestProductsService.PRODUCT2, TestProductsService.PRODUCT3]
+        mock_datetime_class.now.return_value = datetime(2030, 1, 1)
+        products = self.service.get_all_products()
+        self.assertLess(products[0].price_usd, TestProductsService.PRODUCT1.price_usd)
+        self.assertLess(products[1].price_usd, TestProductsService.PRODUCT2.price_usd)
+        self.assertLess(products[2].price_usd, TestProductsService.PRODUCT3.price_usd)
+
 if __name__ == '__main__':
     unittest.main()
