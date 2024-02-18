@@ -10,16 +10,16 @@ __author__ = "Michael Pogrebinsky - www.topdeveloperacademy.com"
 class TestProductCategoriesService(unittest.TestCase):
 
     def setUp(self):
-        self.database = Mock()
+        self.database = create_autospec(Database)
         self.service = ProductCategoriesService(self.database)
 
     def test_get_all_supported_categories(self):
-        self.database.find_all_categories.return_value = ["electronics", "art", "toys"]
+        self.database.find_all_category_names.return_value = ["electronics", "art", "toys"]
         expected_categories = "art,electronics,toys"
         self.assertEqual(self.service.get_all_supported_categories(), expected_categories)
 
     def test_get_all_supported_categories_remove_duplicates(self):
-        self.database.find_all_categories.return_value = ["electronics", "art", "toys", "art"]
+        self.database.find_all_category_names.return_value = ["electronics", "art", "toys", "art"]
         expected_categories = "art,electronics,toys"
         self.assertEqual(self.service.get_all_supported_categories(), expected_categories)
 

@@ -30,7 +30,7 @@ class Product:
 class Database:
     DATABASE_FILE = "resources/database.db"
 
-    def find_all_categories(self) -> List[str]:
+    def find_all_category_names(self) -> List[str]:
         """Returns the category names as a list of strings"""
 
         connection = sqlite3.connect(Database.DATABASE_FILE)
